@@ -51,17 +51,22 @@ const validateProduct = (product) => {
     errors.push("Name is required and must be a non-empty string");
   }
 
-  const priceNum =
-    typeof product.price === "string"
-      ? parseFloat(product.price)
-      : product.price;
-  if (
-    !priceNum ||
-    typeof priceNum !== "number" ||
-    priceNum <= 0 ||
-    Number.isNaN(priceNum)
-  ) {
+  // Only check price if product exists
+  if (!product) {
     errors.push("Price is required and must be a positive number");
+  } else {
+    const priceNum =
+      typeof product.price === "string"
+        ? parseFloat(product.price)
+        : product.price;
+    if (
+      !priceNum ||
+      typeof priceNum !== "number" ||
+      priceNum <= 0 ||
+      Number.isNaN(priceNum)
+    ) {
+      errors.push("Price is required and must be a positive number");
+    }
   }
 
   return errors;

@@ -236,3 +236,40 @@ Content-Type: application/json
   - Roles: array with default value ['user']
   - Timestamps: automatic createdAt/updatedAt fields
 - **Database Connection:** Automatic connection on app startup with success/error logging
+
+---
+
+## 🧪 Testing
+
+### Test Coverage
+- **Statements**: 100% (60/60)
+- **Functions**: 100% (18/18)  
+- **Lines**: 100% (52/52)
+- **Branches**: 93.93% (31/33)
+
+### Running Tests
+
+```bash
+# Run tests
+npm test
+
+# Run tests with coverage report
+npm run test:coverage
+
+# Watch mode for development
+npm run test:watch
+```
+
+### What's Tested
+- **Utilities**: File I/O operations (readJson, writeJson, readCart, readProducts)
+- **Middleware**: Authentication and authorization middleware
+- **Helpers**: ID generation, product validation, cart calculations
+- **Integration**: Complex functions combining multiple dependencies
+
+### Testing Features
+- **Mocking**: File system operations and HTTP middleware
+- **Edge Cases**: Null inputs, empty arrays, invalid data
+- **Error Handling**: File errors, JSON parsing errors, exceptions
+- **Spying**: Function call verification and argument checking
+
+Coverage reports available in `./coverage/index.html` after running tests.

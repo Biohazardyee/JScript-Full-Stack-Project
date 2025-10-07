@@ -25,6 +25,14 @@ coverage/
 # nyc test coverage
 .nyc_output
 
+# Mocha test output
+test-results/
+mochawesome-report/
+
+# Jest coverage (if used)
+coverage/
+coverage-final.json
+
 # Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
@@ -141,6 +149,24 @@ docs/
 
 # Test files
 test-results/
+mochawesome-report/
 
 # Generated hash files
 generate-hash.js
+
+# Package lock files (choose one based on package manager)
+# Uncomment the one you DON'T use:
+# package-lock.json  # if using yarn
+# yarn.lock          # if using npm
+
+# Runtime logs and error files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Local development files
+.env.development
+.env.staging
+.env.test
