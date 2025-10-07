@@ -1,61 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
-var path = require('path');
+const utilities = require('../utilities/utilities');
+const { securityMiddleware, readProducts, writeProducts, generateId, validateProduct, adminMiddleware } = utilities;
 
-const PRODUCTS_FILE = path.join(__dirname, '../data/products.json');
-
-const securityMiddleware = (req, res, next) => {
-    if (req.headers['value'] === 'user' || req.headers['value'] === 'admin') {
-        next();
-    } else {
-        res.status(403).json({ success: false, error: 'Forbidden' });
-    }
-};
-
-const adminMiddleware = (req, res, next) => {
-    if (req.headers['value'] === 'admin') {
-        next();
-    } else {
-        res.status(403).json({ success: false, error: 'Forbidden' });
-    }
-}
-
-// Helper function to read products
-const readProducts = () => {
-    try {
-        const data = fs.readFileSync(PRODUCTS_FILE, 'utf8');
-        return JSON.parse(data);
-    } catch (err) {
-        return [];
-    }
-};
-
-// Helper function to write products
-const writeProducts = (products) => {
-    fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2));
-};
-
-// Helper function to generate unique ID
-const generateId = (products) => {
-    if (products.length === 0) return 1;
-    return Math.max(...products.map(p => p.id)) + 1;
-};
-
-// Helper function to validate product data
-const validateProduct = (product) => {
-    const errors = [];
-
-    if (!product.name || typeof product.name !== 'string' || product.name.trim() === '') {
-        errors.push('Name is required and must be a non-empty string');
-    }
-
-    if (!product.price || typeof product.price !== 'number' || product.price <= 0) {
-        errors.push('Price is required and must be a positive number');
-    }
-
-    return errors;
-};
+// PRODUCTS_FILE is no longer needed here; writeProducts uses centralized path
 
 // GET /products - Get all products
 router.get('/', securityMiddleware, function (req, res, next) {
