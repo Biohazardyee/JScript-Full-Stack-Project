@@ -25,7 +25,7 @@ describe('Middleware Functions - Working Tests', () => {
 
     describe('securityMiddleware', () => {
         it('should call next() for user role', () => {
-            req.headers.value = 'user';
+            req.user = { roles: ['user'] };
 
             utilities.securityMiddleware(req, res, next);
 
@@ -35,7 +35,7 @@ describe('Middleware Functions - Working Tests', () => {
         });
 
         it('should call next() for admin role', () => {
-            req.headers.value = 'admin';
+            req.user = { roles: ['admin'] };
 
             utilities.securityMiddleware(req, res, next);
 
@@ -45,7 +45,7 @@ describe('Middleware Functions - Working Tests', () => {
         });
 
         it('should return 403 for unauthorized role', () => {
-            req.headers.value = 'guest';
+            req.user = { roles: ['guest'] };
 
             utilities.securityMiddleware(req, res, next);
 
@@ -57,8 +57,8 @@ describe('Middleware Functions - Working Tests', () => {
             })).to.be.true;
         });
 
-        it('should return 403 when no value header present', () => {
-            // req.headers.value is undefined
+        it('should return 403 when no user present', () => {
+            // req.user is undefined
 
             utilities.securityMiddleware(req, res, next);
 
@@ -70,8 +70,8 @@ describe('Middleware Functions - Working Tests', () => {
             })).to.be.true;
         });
 
-        it('should return 403 for empty value header', () => {
-            req.headers.value = '';
+        it('should return 403 for empty user roles', () => {
+            req.user = { roles: [] };
 
             utilities.securityMiddleware(req, res, next);
 
@@ -80,7 +80,7 @@ describe('Middleware Functions - Working Tests', () => {
         });
 
         it('should be case sensitive for roles', () => {
-            req.headers.value = 'USER'; // uppercase
+            req.user = { roles: ['USER'] }; // uppercase
 
             utilities.securityMiddleware(req, res, next);
 
@@ -91,7 +91,7 @@ describe('Middleware Functions - Working Tests', () => {
 
     describe('adminMiddleware', () => {
         it('should call next() for admin role', () => {
-            req.headers.value = 'admin';
+            req.user = { roles: ['admin'] };
 
             utilities.adminMiddleware(req, res, next);
 
@@ -101,7 +101,7 @@ describe('Middleware Functions - Working Tests', () => {
         });
 
         it('should return 403 for user role', () => {
-            req.headers.value = 'user';
+            req.user = { roles: ['user'] };
 
             utilities.adminMiddleware(req, res, next);
 
@@ -114,7 +114,7 @@ describe('Middleware Functions - Working Tests', () => {
         });
 
         it('should return 403 for unauthorized role', () => {
-            req.headers.value = 'guest';
+            req.user = { roles: ['guest'] };
 
             utilities.adminMiddleware(req, res, next);
 
@@ -122,7 +122,7 @@ describe('Middleware Functions - Working Tests', () => {
             expect(res.status.calledWith(403)).to.be.true;
         });
 
-        it('should return 403 when no value header present', () => {
+        it('should return 403 when no user present', () => {
             utilities.adminMiddleware(req, res, next);
 
             expect(next.called).to.be.false;
@@ -130,7 +130,7 @@ describe('Middleware Functions - Working Tests', () => {
         });
 
         it('should be case sensitive for admin role', () => {
-            req.headers.value = 'ADMIN'; // uppercase
+            req.user = { roles: ['ADMIN'] }; // uppercase
 
             utilities.adminMiddleware(req, res, next);
 
@@ -141,7 +141,7 @@ describe('Middleware Functions - Working Tests', () => {
 
     describe('Middleware Integration Tests', () => {
         it('should work with both middlewares in sequence for admin', () => {
-            req.headers.value = 'admin';
+            req.user = { roles: ['admin'] };
 
             // First security middleware
             utilities.securityMiddleware(req, res, next);
@@ -160,7 +160,7 @@ describe('Middleware Functions - Working Tests', () => {
         });
 
         it('should fail at admin middleware for user role', () => {
-            req.headers.value = 'user';
+            req.user = { roles: ['user'] };
 
             // First security middleware (should pass)
             utilities.securityMiddleware(req, res, next);
@@ -186,7 +186,7 @@ describe('Middleware Functions - Working Tests', () => {
         it('should handle exceptions in middleware gracefully', () => {
             // Simulate an error by making res.status throw
             res.status.throws(new Error('Response error'));
-            req.headers.value = 'invalid';
+            req.user = { roles: ['invalid'] };
 
             expect(() => {
                 utilities.securityMiddleware(req, res, next);

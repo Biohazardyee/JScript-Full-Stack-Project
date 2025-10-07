@@ -86,13 +86,16 @@ const adminMiddleware = (req, res, next) => {
 };
 
 const calculateBalance = (cartItems, products) => {
-  return cartItems.reduce((total, cartItem) => {
+  const balance = cartItems.reduce((total, cartItem) => {
     const product = products.find((p) => p.id === cartItem.productId);
     if (product) {
       return total + product.price * cartItem.quantity;
     }
     return total;
   }, 0);
+  
+  // Round to 2 decimal places to handle floating point precision issues
+  return Math.round(balance * 100) / 100;
 };
 
 const getCartWithDetails = () => {
@@ -101,10 +104,11 @@ const getCartWithDetails = () => {
 
   const cartWithDetails = cartItems.map((cartItem) => {
     const product = products.find((p) => p.id === cartItem.productId);
+    const subtotal = product ? product.price * cartItem.quantity : 0;
     return {
       ...cartItem,
       product: product || null,
-      subtotal: product ? product.price * cartItem.quantity : 0,
+      subtotal: Math.round(subtotal * 100) / 100, // Round subtotal to 2 decimal places
     };
   });
 

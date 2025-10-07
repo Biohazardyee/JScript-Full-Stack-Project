@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "jscript-full-stack-project",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,9 @@
     "test": "mocha test/utilities-working.test.js test/middleware-working.test.js",
     "test:coverage": "nyc mocha test/utilities-working.test.js test/middleware-working.test.js",
     "test:watch": "mocha test/utilities-working.test.js test/middleware-working.test.js --watch",
-    "test:all": "mocha test/**/*.js"
+    "test:all": "mocha test/**/*.js",
+    "test:api": "mocha test/api-endpoints.test.js --timeout 10000",
+    "test:complete": "mocha test/utilities-working.test.js test/middleware-working.test.js test/api-endpoints.test.js --timeout 10000"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -17,6 +19,7 @@
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "http-errors": "~1.6.3",
+    "joi": "^18.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongo": "^0.1.0",
     "mongoose": "^8.19.0",
@@ -27,6 +30,7 @@
     "mocha": "^11.7.4",
     "nyc": "^17.1.0",
     "sinon": "^21.0.0",
-    "sinon-chai": "^4.0.1"
+    "sinon-chai": "^4.0.1",
+    "supertest": "^7.1.4"
   }
 }
