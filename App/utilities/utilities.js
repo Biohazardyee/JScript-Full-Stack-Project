@@ -6,7 +6,12 @@ const CART_FILE = path.join(__dirname, "..", "data", "cart.json");
 const PRODUCTS_FILE = path.join(__dirname, "..", "data", "products.json");
 
 const securityMiddleware = (req, res, next) => {
-  if (req.headers["value"] === "user" || req.headers["value"] === "admin") {
+  // Check if user exists and has the required roles
+  if (
+    req.user &&
+    req.user.roles &&
+    (req.user.roles.includes("user") || req.user.roles.includes("admin"))
+  ) {
     return next();
   }
 
@@ -73,7 +78,8 @@ const validateProduct = (product) => {
 };
 
 const adminMiddleware = (req, res, next) => {
-  if (req.headers["value"] === "admin") {
+  // Check if user exists and has admin role
+  if (req.user && req.user.roles && req.user.roles.includes("admin")) {
     return next();
   }
   res.status(403).json({ success: false, error: "Forbidden" });

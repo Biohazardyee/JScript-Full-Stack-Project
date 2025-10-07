@@ -17,16 +17,9 @@ function JWTmiddleware(req, res, next) {
             })
         }
 
-        if (JWT.verify(token, process.env.JWT_SECRET)) {
-        
-            next();
-        }
-        else {
-            res.status(401).json({
-                success: false,
-                error: "Token doesn't match"
-            })
-        }
+        const decoded = JWT.verify(token, process.env.JWT_SECRET);
+        req.user = decoded; // Attach user info to request
+        next();
 
     } catch (error) {
         return res.status(500).json({
