@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone 15",
+    "price": 1199.99,
+    "createdAt": "2025-10-03T12:26:52.964Z"
+  },
+  {
+    "id": 2,
+    "name": "iPhone 14",
+    "price": 899.99,
+    "createdAt": "2025-10-03T12:27:10.535Z"
+  },
+  {
+    "id": 3,
+    "name": "Samsung Galaxy S23",
+    "price": 799.99,
+    "createdAt": "2025-10-03T12:28:00.000Z"
+  },
+  {
+    "id": 4,
+    "name": "Google Pixel 8",
+    "price": 699.99,
+    "createdAt": "2025-10-03T12:28:10.000Z"
+  },
+  {
+    "id": 5,
+    "name": "OnePlus 11",
+    "price": 649.99,
+    "createdAt": "2025-10-03T12:28:20.000Z"
+  },
+  {
+    "id": 6,
+    "name": "Sony Xperia 5 V",
+    "price": 749.99,
+    "createdAt": "2025-10-03T12:28:30.000Z"
+  },
+  {
+    "id": 7,
+    "name": "Xiaomi 13 Pro",
+    "price": 599.99,
+    "createdAt": "2025-10-03T12:28:40.000Z"
+  },
+  {
+    "id": 8,
+    "name": "Dell XPS 13 Laptop",
+    "price": 1299.99,
+    "createdAt": "2025-10-03T12:29:00.000Z"
+  },
+  {
+    "id": 9,
+    "name": "Apple AirPods Pro",
+    "price": 249.99,
+    "createdAt": "2025-10-03T12:29:10.000Z"
+  },
+  {
+    "id": 10,
+    "name": "Samsung 4K TV",
+    "price": 999.99,
+    "createdAt": "2025-10-03T12:29:20.000Z"
+  },
+  {
+    "id": 11,
+    "name": "Logitech MX Master 3 Mouse",
+    "price": 99.99,
+    "createdAt": "2025-10-03T12:29:30.000Z"
+  },
+  {
+    "id": 12,
+    "name": "Kindle Paperwhite",
+    "price": 139.99,
+    "createdAt": "2025-10-03T12:29:40.000Z"
+  },
+  {
+    "id": 13,
+    "name": "Sony WH-1000XM5 Headphones",
+    "price": 399.99,
+    "createdAt": "2025-10-03T12:29:50.000Z"
+  },
+  {
+    "id": 15,
+    "name": "iPhone 15 Pro",
+    "price": 1299.99,
+    "createdAt": "2025-10-03T12:47:30.453Z"
+  }
+]

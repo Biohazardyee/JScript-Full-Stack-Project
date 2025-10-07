@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "productId": 1,
+    "quantity": 2,
+    "addedAt": "2025-10-03T12:28:47.315Z",
+    "updatedAt": "2025-10-03T12:28:51.053Z"
+  },
+  {
+    "id": 2,
+    "productId": 2,
+    "quantity": 5,
+    "addedAt": "2025-10-03T12:29:52.945Z",
+    "updatedAt": "2025-10-03T12:30:13.671Z"
+  },
+  {
+    "id": 3,
+    "productId": 7,
+    "quantity": 1,
+    "addedAt": "2025-10-03T12:33:16.164Z"
+  },
+  {
+    "id": 4,
+    "productId": 8,
+    "quantity": 1,
+    "addedAt": "2025-10-03T14:24:17.795Z"
+  }
+]
