@@ -3,7 +3,6 @@ var router = express.Router();
 const utilities = require('../utilities/utilities');
 const { securityMiddleware, readProducts, writeProducts, generateId, validateProduct, adminMiddleware } = utilities;
 
-// PRODUCTS_FILE is no longer needed here; writeProducts uses centralized path
 
 // GET /products - Get all products
 router.get('/', securityMiddleware, function (req, res, next) {

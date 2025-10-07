@@ -206,6 +206,4 @@ router.delete('/', securityMiddleware, function(req, res, next) {
 });
 
 
-
-
 module.exports = router;

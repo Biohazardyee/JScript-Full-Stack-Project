@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="/stylesheets/chat.css">
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-header">
+            <h2>Support Chat</h2>
+            <div id="user-info">
+                <span id="current-user"></span>
+                <button id="logout-btn">Logout</button>
+            </div>
+        </div>
+        <div id="messages"></div>
+        <form id="chat-form">
+            <input id="message-input" autocomplete="off" placeholder="Type your message..." />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Check authentication
+        const token = localStorage.getItem('chatToken');
+        const userEmail = localStorage.getItem('userEmail');
+        
+        if (!token || !userEmail) {
+            window.location.href = '/login-page';
+        }
+        
+        // Display current user
+        document.getElementById('current-user').textContent = userEmail;
+        
+        // Initialize Socket.io with authentication
+        const socket = io({
+            auth: {
+                token: token
+            }
+        });
+
+        const form = document.getElementById('chat-form');
+        const input = document.getElementById('message-input');
+        const messages = document.getElementById('messages');
+
+        // Handle connection events
+        socket.on('connect', function() {
+            console.log('Connected to chat server');
+            socket.emit('request history');
+        });
+
+        socket.on('connect_error', function(error) {
+            console.error('Connection failed:', error.message);
+            if (error.message === 'Authentication required' || error.message === 'Invalid token') {
+                localStorage.removeItem('chatToken');
+                localStorage.removeItem('userEmail');
+                window.location.href = '/login-page';
+            }
+        });
+
+        // Handle form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (input.value.trim()) {
+                socket.emit('chat message', input.value.trim());
+                input.value = '';
+            }
+        });
+
+        // Display individual message
+        function displayMessage(messageObj) {
+            const item = document.createElement('div');
+            item.className = 'message';
+            
+            // Check if it's current user's message
+            if (messageObj.username === userEmail) {
+                item.classList.add('own-message');
+            }
+            
+            // Format timestamp
+            const timestamp = new Date(messageObj.timestamp);
+            const timeString = timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            item.innerHTML = `
+                <div class="message-header">
+                    <span class="username">${messageObj.username}</span>
+                    <span class="timestamp">${timeString}</span>
+                </div>
+                <div class="message-content">${messageObj.content}</div>
+            `;
+            
+            messages.appendChild(item);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // Handle incoming messages
+        socket.on('chat message', function(messageObj) {
+            displayMessage(messageObj);
+        });
+
+        // Handle chat history
+        socket.on('chat history', function(history) {
+            console.log('Received chat history:', history);
+            // Clear existing messages
+            messages.innerHTML = '';
+            // Display all history messages
+            history.forEach(function(messageObj) {
+                displayMessage(messageObj);
+            });
+        });
+
+        // Handle logout
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('chatToken');
+            localStorage.removeItem('userEmail');
+            socket.disconnect();
+            window.location.href = '/login-page';
+        });
+
+        // Handle page unload
+        window.addEventListener('beforeunload', function() {
+            socket.disconnect();
+        });
+    </script>
+</body>
+</html>

@@ -4,6 +4,7 @@ const path = require("path");
 // data folder is one level up from this utilities folder
 const CART_FILE = path.join(__dirname, "..", "data", "cart.json");
 const PRODUCTS_FILE = path.join(__dirname, "..", "data", "products.json");
+const DOCUMENT_FILE = path.join(__dirname, '..', 'data', 'documents.json');
 
 const securityMiddleware = (req, res, next) => {
   // Check if user exists and has the required roles
@@ -36,8 +37,10 @@ const writeJson = (filePath, data) => {
 // Backward-compatible specialized functions
 const readCart = () => readJson(CART_FILE, []);
 const readProducts = () => readJson(PRODUCTS_FILE, []);
+const readDocuments = () => readJson(DOCUMENT_FILE, []);
 const writeCart = (cartItems) => writeJson(CART_FILE, cartItems);
 const writeProducts = (products) => writeJson(PRODUCTS_FILE, products);
+const writeDocumentsData = (documents) => writeJson(DOCUMENT_FILE, documents);
 
 const generateId = (items) => {
   if (!Array.isArray(items) || items.length === 0) return 1;
@@ -93,7 +96,7 @@ const calculateBalance = (cartItems, products) => {
     }
     return total;
   }, 0);
-  
+
   // Round to 2 decimal places to handle floating point precision issues
   return Math.round(balance * 100) / 100;
 };
@@ -121,6 +124,23 @@ const getCartWithDetails = () => {
   };
 };
 
+const fileFilter = (req, file, cb) => {
+  const allowedMimeTypes = [
+    'image/jpeg',
+    'image/jpg',
+    'image/png',
+    'image/gif',
+    'image/webp',
+    'audio/mpeg',
+    'audio/mp3',
+  ];
+
+  if (!allowedMimeTypes.includes(file.mimetype)) {
+    return cb(new Error('Only image and audio files are allowed'), false);
+  }
+  cb(null, true);
+}
+
 module.exports = {
   securityMiddleware,
   readCart,
@@ -132,6 +152,9 @@ module.exports = {
   generateId,
   validateProduct,
   adminMiddleware,
+  writeDocumentsData,
+  readDocuments,
+  fileFilter,
   // lower-level helpers (useful for tests)
   readJson,
   writeJson,

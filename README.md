@@ -1,31 +1,138 @@
-# E-Commerce API with JWT Authentication
+# 🛍️ JScript Full Stack E-Commerce API
 
-Express.js API for managing products and shopping cart with JWT-based authentication, bcrypt password hashing, and MongoDB Atlas database.
+A comprehensive Express.js API featuring e-commerce functionality, document management, JWT authentication, and MongoDB integration. This project demonstrates modern Node.js development practices with extensive testing coverage.
 
-## 🚀 Setup
+## ✨ Features
+
+### 🔐 Authentication & Security
+- JWT-based authentication with bcrypt password hashing
+- Role-based access control (user/admin)
+- Secure middleware protection for private routes
+- Input validation and sanitization
+
+### 🛒 E-Commerce Core
+- Product catalog management (CRUD operations)
+- Shopping cart functionality with automatic calculations
+- User-specific cart management
+- Admin-only product management
+
+### 📁 Document Management
+- Secure file upload (images and audio, max 10MB)
+- File integrity validation with hash verification
+- Multer-based file handling with filtering
+- Document metadata storage and retrieval
+
+### 🧪 Professional Testing
+- 100+ comprehensive tests with 90%+ coverage
+- Unit and integration test separation
+- Professional test helpers and utilities
+- Legacy test compatibility
+
+## 🚀 Quick Start
 
 ### Prerequisites
-
-- Node.js installed
-- MongoDB Atlas account
+- Node.js 14+ installed
+- MongoDB Atlas account or local MongoDB
 - Environment variables configured
 
 ### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/Biohazardyee/JScript-Full-Stack-Project.git
+cd JScript-Full-Stack-Project/App
+
+# Install dependencies
 npm install
-npm start
+
+# Configure environment (see Environment Setup below)
+cp .env.example .env
+
+# Start development server
+npm run dev
 ```
 
-Server: `http://localhost:3000`
+**Server**: `http://localhost:3000`
 
-### Environment Configuration
+## 📁 Project Structure
 
-Create a `.env` file in the project root:
+```
+JScript-Full-Stack-Project/
+├── .gitignore               # Git ignore patterns
+├── README.md               # Main project documentation
+└── App/                    # Main application directory
+    ├── .env                # Environment variables (not in git)
+    ├── .mocharc.json       # Mocha test configuration
+    ├── .nycrc              # Coverage configuration
+    ├── app.js              # Express application entry point
+    ├── package.json        # Dependencies and scripts
+    ├── package-lock.json   # Dependency lock file
+    │
+    ├── bin/                # Server startup scripts
+    │   └── www             # Server bootstrap
+    │
+    ├── config/             # Configuration files
+    │   └── database.js     # Database connection setup
+    │
+    ├── data/               # Data storage (JSON files)
+    │   ├── cart.json       # Shopping cart data
+    │   ├── documents.json  # Document metadata
+    │   ├── products.json   # Product catalog
+    │   └── uploads/        # Uploaded file storage
+    │
+    ├── imgs/               # Test images for development
+    │
+    ├── middleware/         # Custom middleware
+    │   └── auth.js         # Authentication middleware
+    │
+    ├── public/             # Static assets
+    │   ├── images/
+    │   ├── javascripts/
+    │   └── stylesheets/
+    │       └── style.css
+    │
+    ├── routes/             # API route definitions
+    │   ├── articles.js     # Product CRUD operations
+    │   ├── cart.js         # Shopping cart management
+    │   ├── documents.js    # File upload/download
+    │   ├── login.js        # User authentication
+    │   └── register.js     # User registration
+    │
+    ├── schemas/            # Validation schemas
+    │   └── validation.js   # Input validation rules
+    │
+    ├── test/               # Test suite
+    │   ├── setup.js        # Test environment setup
+    │   ├── README.md       # Testing documentation
+    │   ├── helpers/        # Shared test utilities
+    │   ├── unit/           # Unit tests
+    │   ├── integration/    # Integration tests
+    │   └── legacy/         # Original working tests
+    │
+    ├── utilities/          # Helper functions
+    │   └── utilities.js    # File I/O and utility functions
+    │
+    └── views/              # EJS templates
+        ├── error.ejs       # Error page template
+        └── index.ejs       # Home page template
+```
+
+### Environment Setup
+
+Create a `.env` file in the `/App` directory:
 
 ```env
-JWT_SECRET=your_jwt_secret_here
-MongoDBConnection=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/databasename
+# JWT Configuration
+JWT_SECRET=your_super_secure_jwt_secret_here
+
+# MongoDB Configuration
+MongoDBConnection=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/ecommerce
+
+# Environment
+NODE_ENV=development
+
+# Optional: Port configuration
+PORT=3000
 ```
 
 **MongoDB Atlas Setup:**
@@ -241,6 +348,12 @@ Content-Type: application/json
 
 ## 🧪 Testing
 
+### Professional Test Architecture
+- **Organized Structure**: Separate unit, integration, and legacy test directories
+- **Shared Helpers**: Centralized test utilities and helper classes
+- **Legacy Compatibility**: Preserved working tests during refactoring
+- **Documentation**: Comprehensive test documentation in `/test/README.md`
+
 ### Test Coverage
 - **Statements**: 100% (60/60)
 - **Functions**: 100% (18/18)  
@@ -250,14 +363,20 @@ Content-Type: application/json
 ### Running Tests
 
 ```bash
-# Run tests
+# Run main test suite
 npm test
 
-# Run tests with coverage report
-npm run test:coverage
+# Run specific test types
+npm run test:unit           # Unit tests only
+npm run test:integration    # Integration tests only
+npm run test:legacy         # Original working tests
 
-# Watch mode for development
-npm run test:watch
+# Development workflow
+npm run test:watch          # Watch mode for development
+npm run test:coverage       # Generate coverage report
+
+# Test with real file operations
+npm run test:legacy:image   # Real image upload/download test
 ```
 
 ### What's Tested

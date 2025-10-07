@@ -4,6 +4,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+jspm_packages/
 
 # Environment variables
 .env
@@ -11,15 +12,33 @@ pnpm-debug.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env.development
+.env.staging
+.env.test
 
 # Coverage reports
 coverage/
 *.lcov
 .nyc_output
 
+# Test output
+test-results/
+mochawesome-report/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
 # Logs
 logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # OS generated files
 .DS_Store
@@ -40,6 +59,8 @@ Thumbs.db
 # Temporary files
 tmp/
 temp/
+.cache
+.parcel-cache
 
 # Database files
 *.db
@@ -49,3 +70,38 @@ temp/
 # Backup files
 *.bak
 *.backup
+
+# Build outputs
+build/
+dist/
+.next/
+.nuxt/
+
+# Cache directories
+.npm
+.eslintcache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional files
+.node_repl_history
+*.tgz
+.yarn-integrity
+.tern-port
+.vscode-test
+.dynamodb/
+.fusebox/
+.serverless/
+
+# TypeScript
+*.tsbuildinfo
+
+# Generated documentation
+docs/
+
+# Project specific
+# Uncomment to ignore user data files
+# App/data/users.json
+# App/data/products.json

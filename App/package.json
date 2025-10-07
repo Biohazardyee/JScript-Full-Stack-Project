@@ -4,14 +4,21 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha test/utilities-working.test.js test/middleware-working.test.js",
-    "test:coverage": "nyc mocha test/utilities-working.test.js test/middleware-working.test.js",
-    "test:watch": "mocha test/utilities-working.test.js test/middleware-working.test.js --watch",
-    "test:all": "mocha test/**/*.js",
-    "test:api": "mocha test/api-endpoints.test.js --timeout 10000",
-    "test:complete": "mocha test/utilities-working.test.js test/middleware-working.test.js test/api-endpoints.test.js --timeout 10000"
+    "dev": "nodemon ./bin/www",
+    "test": "mocha test/setup.js test/unit/**/*.test.js test/integration/**/*.test.js --timeout 20000",
+    "test:unit": "mocha test/setup.js test/unit/**/*.test.js --timeout 10000",
+    "test:integration": "mocha test/setup.js test/integration/**/*.test.js --timeout 20000",
+    "test:watch": "mocha test/setup.js test/unit/**/*.test.js test/integration/**/*.test.js --watch --timeout 20000",
+    "test:coverage": "nyc --reporter=html --reporter=text --reporter=lcov mocha test/setup.js test/unit/**/*.test.js test/integration/**/*.test.js --timeout 20000",
+    "test:coverage:unit": "nyc --reporter=text mocha test/setup.js test/unit/**/*.test.js --timeout 10000",
+    "test:legacy": "mocha test/legacy/utilities-working.test.js test/legacy/middleware-working.test.js",
+    "test:legacy:image": "mocha test/legacy/real-image-test.js --timeout 20000",
+    "test:legacy:all": "mocha test/legacy/**/*.test.js --timeout 20000",
+    "lint": "echo 'Linting not configured yet'",
+    "format": "echo 'Code formatting not configured yet'"
   },
   "dependencies": {
+    "axios": "^1.12.2",
     "bcrypt": "^6.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -23,11 +30,14 @@
     "jsonwebtoken": "^9.0.2",
     "mongo": "^0.1.0",
     "mongoose": "^8.19.0",
-    "morgan": "^1.10.1"
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "chai": "^6.2.0",
     "mocha": "^11.7.4",
+    "nodemon": "^3.1.10",
     "nyc": "^17.1.0",
     "sinon": "^21.0.0",
     "sinon-chai": "^4.0.1",

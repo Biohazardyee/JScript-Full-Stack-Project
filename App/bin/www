@@ -7,6 +7,9 @@
 var app = require('../app');
 var debug = require('debug')('test:server');
 var http = require('http');
+var { setupChat } = require('../routes/chatroom');
+
+
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +23,8 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+// Setup chat with the HTTP server
+var io = setupChat(server);
 
 /**
  * Listen on provided port, on all network interfaces.

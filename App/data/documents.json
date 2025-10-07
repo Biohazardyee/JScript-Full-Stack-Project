@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "originalName": "1718217729729.jpg",
+    "mimeType": "image/jpeg",
+    "size": 9900,
+    "fileName": "e293276dec7eefbcfad7ac65d7e2d54d",
+    "filePath": "data\\uploads\\e293276dec7eefbcfad7ac65d7e2d54d",
+    "uploadDate": "2025-10-07T13:30:40.928Z"
+  },
+  {
+    "id": 2,
+    "originalName": "1718217729729.jpg",
+    "mimeType": "image/jpeg",
+    "size": 9900,
+    "fileName": "1a45244b241eebe8eb822c771324123a",
+    "filePath": "data\\uploads\\1a45244b241eebe8eb822c771324123a",
+    "uploadDate": "2025-10-07T13:34:00.113Z"
+  }
+]
